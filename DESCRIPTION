@@ -1,0 +1,19 @@
+Package: iapvbs
+Title: Individual Age at Peak Velocity Based on SITAR
+Version: 0.0.2
+Date: 2018-09-28
+Author: Zhiqiang Cao, L.L. Hui and M.Y. Wong
+Maintainer: Zhiqiang Cao <zcaoae@connect.ust.hk>
+Description: This package provides three methods for computing individual age at peak velocity (apv), 
+             peak velocity (pv) and height (or weight) at peak velocity (ypv) based on the SITAR model 
+             proposed by Cole et al. (2010). The first is the numerical method; the second applies the 
+             property of the quadratic function to calculate apv; and the third is derived from the 
+             assumption of the SITAR model. In order to obtain the apv, pv, and ypv of each individual 
+             accurately, it is necessary to interpolate age measurements for original data. 
+License: GPL (>= 2)
+Depends: R (>= 3.0.0), nlme
+Imports: sitar(>= 1.0.8)
+RoxygenNote: 6.0.1
+Encoding: UTF-8
+LazyData: true
+
