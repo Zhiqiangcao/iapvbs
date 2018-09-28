@@ -169,14 +169,12 @@ getapv <- function (object, method = 1, nmy = 365, xfun = NULL, yfun = NULL) {
       if (class(newdata1[, i]) == "list")
         newdata1[, i] <- as.numeric(newdata1[, i])
     }
-    #newdata1$x <- xofun(newdata1$x)
     pastex <- paste(mcall$x)  #update
     if(length(pastex) == 2) colnames(newdata1) <- c(pastex[2], paste(mcall$id)) #update
     else colnames(newdata1) <- c(pastex, paste(mcall$id)) #update
     fit.y <- predict(object, newdata = newdata1, xfun = xfun,
                      yfun = yfun)
     fit.x <- newdata1[,1] #update (extention of fit.x in original x)
-    #fit.x <- xfun(fit.x)
     fit.id <- newdata1[,2] #update (extention of fit.id in original id)
     newdata1 <- data.frame(fit.x, fit.y, fit.id)
     calapv <- apply(idmat, 1, function(x) {
@@ -231,7 +229,6 @@ getapv <- function (object, method = 1, nmy = 365, xfun = NULL, yfun = NULL) {
         if (class(newdata1[, i]) == "list")
           newdata1[, i] <- as.numeric(newdata1[, i])
       }
-      #newdata1$x <- xofun(newdata1$x)
       pastex <- paste(mcall$x)  #update
       if(length(pastex) == 2) colnames(newdata1) <- c(pastex[2], paste(mcall$id)) #update
       else colnames(newdata1) <- c(pastex, paste(mcall$id)) #update
@@ -240,7 +237,6 @@ getapv <- function (object, method = 1, nmy = 365, xfun = NULL, yfun = NULL) {
       fit.v <- predict(object, newdata = newdata1, deriv = 1,
                        xfun = xfun, yfun = yfun)
       fit.x <- newdata1[,1] #update
-      #fit.x <- xfun(fit.x)
       fit.id <- newdata1[,2] #update
       newdata1 <- data.frame(fit.x, fit.y, fit.v, fit.id)
       calapv <- apply(idmat, 1, function(x) {
@@ -271,10 +267,6 @@ getapv <- function (object, method = 1, nmy = 365, xfun = NULL, yfun = NULL) {
                     yfun = yfun)
     nm <- length(unique(fit.id))
     calapv <- matrix(0,nm,4)
-    ###round
-    apvm <- round(apvm,4)
-    pvm <- round(pvm,4)
-    ypvm <- round(ypvm,4)
     #note that fit.x is the original age of subjects
     #fit.id is the original id of subjects
     #test if there are NA and warning values
@@ -301,5 +293,9 @@ getapv <- function (object, method = 1, nmy = 365, xfun = NULL, yfun = NULL) {
     calapv <- data.frame(idmat,calapv)
     colnames(calapv) <- c("id", "pv", "ypv", "apv", "flag")
   }
+  #round at 6 decimial
+  calapv$pv <- round(calapv$pv,6)
+  calapv$apv <- round(calapv$apv,6)
+  calapv$ypv <- round(calapv$ypv,6)
   return(calapv)
 }
